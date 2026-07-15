@@ -84,7 +84,7 @@ class QRCodeReaderView {
       if (code) {
         this.stopCamera()
         this.scannerElement.style.display = 'none'
-        alert(code)
+        alert(JSON.stringify(code))
         return
       }
     }
