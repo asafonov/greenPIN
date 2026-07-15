@@ -37,13 +37,13 @@ class QRCodeReaderView {
     return div
   }
 
-  async startCamera() {
+  async startCamera (callbackFn) {
     try {
       const video = this.scannerElement.querySelector('video')
       this.stream = await navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'}})
       video.srcObject = this.stream
       this.scanning = true
-      this.scanLoop()
+      this.scanLoop(callbackFn)
     } catch (e) {
       alert(e.message)
     }
@@ -67,7 +67,7 @@ class QRCodeReaderView {
     video.pause()
   }
 
-  scanLoop() {
+  scanLoop (callbackFn) {
     if (! this.scanning) return
 
     const video = this.scannerElement.querySelector('video')
@@ -84,7 +84,7 @@ class QRCodeReaderView {
       if (code) {
         this.stopCamera()
         this.scannerElement.style.display = 'none'
-        alert(JSON.stringify(code))
+        callbackFn && callbackFn(code)
         return
       }
     }
@@ -92,9 +92,9 @@ class QRCodeReaderView {
     this.rafId = requestAnimationFrame(this.scanLoopProxy)
   }
 
-  scan() {
+  scan (callbackFn) {
     this.scannerElement.style.display = 'flex'
-    this.startCamera()
+    this.startCamera(callbackFn)
   }
 
 }
