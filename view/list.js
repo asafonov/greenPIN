@@ -7,12 +7,12 @@ class ListView {
     this.onListUpdate()
   }
 
-  onItemClick (e) {
+  async onItemClick (e) {
     e.preventDefault()
     e.stopPropagation()
     const li = e.target
     const item = this.model.item(li.innerHTML)
-    alert(asafonov.totp.generateTOTP(item.secret))
+    alert(await asafonov.totp.generateTOTP(item.secret))
   }
 
   onListUpdate () {
