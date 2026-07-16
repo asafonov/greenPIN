@@ -12,11 +12,13 @@ class List {
 
   onItemAdd (data) {
     this.list[data.provider] = data
+    this.save()
     asafonov.messageBus.send(asafonov.events.LIST_UPDATED)
   }
 
   onItemDelete (data) {
     delete this.list[data.provider]
+    this.save()
     asafonov.messageBus.send(asafonov.events.LIST_UPDATED)
   }
 

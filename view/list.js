@@ -5,14 +5,15 @@ class ListView {
     asafonov.messageBus.subscribe(asafonov.events.LIST_UPDATED, this, 'onListUpdate')
   }
 
-  onListUpdate (data) {
+  onListUpdate () {
     this.container.innerHTML = ''
     const ul = document.createElement('ul')
     this.container.appendChild(ul)
+    const data = this.model.get()
 
-    for (let item of data) {
+    for (let i in data) {
       const li = document.createElement('li')
-      li.innerHTML = item.provider
+      li.innerHTML = data[i].provider
       ul.appendChild(li)
     }
   }
