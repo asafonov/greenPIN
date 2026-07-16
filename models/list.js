@@ -10,6 +10,10 @@ class List {
     return this.list
   }
 
+  item (key) {
+    return this.list[key]
+  }
+
   onItemAdd (data) {
     this.list[data.provider] = data
     this.save()

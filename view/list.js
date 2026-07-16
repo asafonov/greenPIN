@@ -3,7 +3,16 @@ class ListView {
     this.model = new List()
     this.container = document.querySelector('.content')
     asafonov.messageBus.subscribe(asafonov.events.LIST_UPDATED, this, 'onListUpdate')
+    this.onItemClickProxy = this.onItemClick.bind(this)
     this.onListUpdate()
+  }
+
+  onItemClick (e) {
+    e.preventDefault()
+    e.stopPropagation()
+    const li = e.target
+    const item = this.model.item(li.innerHTML)
+    alert(asafonov.totp.generateTOTP(item.secret))
   }
 
   onListUpdate () {
@@ -14,7 +23,8 @@ class ListView {
 
     for (let i in data) {
       const li = document.createElement('li')
-      li.innerHTML = data[i].provider
+      li.innerHTML = i
+      li.addEventListener('click', this.onItemClickProxy)
       ul.appendChild(li)
     }
   }
