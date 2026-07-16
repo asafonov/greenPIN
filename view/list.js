@@ -3,6 +3,7 @@ class ListView {
     this.model = new List()
     this.container = document.querySelector('.content')
     asafonov.messageBus.subscribe(asafonov.events.LIST_UPDATED, this, 'onListUpdate')
+    this.onListUpdate()
   }
 
   onListUpdate () {
