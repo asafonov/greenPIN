@@ -7,8 +7,8 @@
 :root {
   --background: #000000;
   --foreground: #00ff00;
-  --mainFontSize: 3vh;
-  --headerFontSize: 6vh;
+  --mainFontSize: 5vh;
+  --headerFontSize: 8vh;
   --plusFontSize: 8vh;
 }
 
@@ -34,5 +34,13 @@ html, body {
 }
 
 .header {
+  font-size: var(--headerFontSize);
+}
+
+.qrContainer {
+  background-color: var(--background);
+}
+
+.qrContainer .message {
   font-size: var(--headerFontSize);
 }

@@ -6,7 +6,7 @@ class QRCodeGeneratorView {
   }
 
   createQRCode() {
-    const size = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) * 0.96
+    const size = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) * 0.8
     return new QRCode(this.qrCodeElement.querySelector('div'), {width: size, height: size})
   }
 
@@ -22,8 +22,7 @@ class QRCodeGeneratorView {
     div.style.width = `${w}px`
     div.style.height = `${h}px`
     div.style.display = 'none'
-    div.style.zIndex = '999'
-    div.className = 'back_color'
+    div.style.zIndex = 999
     div.style.justifyContent = 'center'
     div.style.alignItems = 'center'
     div.style.flexDirection = 'column'
