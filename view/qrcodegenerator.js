@@ -1,21 +1,21 @@
 class QRCodeGeneratorView {
 
-  constructor() {
-    this.qrCodeElement = this.createQRCodeElement()
-    this.qrCode = this.createQRCode()
+  constructor (scale = 0.6) {
+    this.qrCodeElement = this.createQRCodeElement(scale)
+    this.qrCode = this.createQRCode(scale)
   }
 
-  createQRCode() {
-    const size = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) * 0.8
+  createQRCode (scale) {
+    const size = Math.min(document.documentElement.clientWidth, document.documentElement.clientHeight) * 0.8 * scale
     return new QRCode(this.qrCodeElement.querySelector('div'), {width: size, height: size})
   }
 
-  createQRCodeElement() {
+  createQRCodeElement (scale) {
     const div = document.createElement('div')
     div.className = 'qrContainer'
     const w = document.documentElement.clientWidth
     const h = document.documentElement.clientHeight
-    const size = Math.min(w, h)
+    const size = Math.min(w, h) * scale
     div.style.position = 'fixed'
     div.style.top = '0px'
     div.style.left = '0px'
