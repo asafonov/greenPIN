@@ -15,7 +15,7 @@ class TOTP {
 
     return {
       secret: params.secret || '',
-      issuer: params.issuer?.replace(/[^A-z]/g, '') || '',
+      issuer: params.issuer || '',
       provider: pathname[0],
       username: pathname.length > 1 ? pathname[1] : ''
     }
