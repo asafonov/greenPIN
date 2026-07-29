@@ -7,7 +7,7 @@ class ControlsView {
   }
 
   onQRCodeScan (data) {
-    const url = data.data
+    const url = data.data.replace(/[^A-z0-9\/\:\?\&=@\.]/g, '')
     const parsedData = asafonov.totp.parseUrl(url)
     asafonov.messageBus.send(asafonov.events.ITEM_ADDED, parsedData)
   }
