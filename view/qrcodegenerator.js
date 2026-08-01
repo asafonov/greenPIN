@@ -44,7 +44,6 @@ class QRCodeGeneratorView {
 
     const button = document.createElement('div')
     button.innerHTML = 'Close'
-    button.style.marginTop = '20px'
     button.addEventListener('click', () => {
       div.style.display = 'none'
     })
