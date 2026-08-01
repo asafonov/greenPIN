@@ -18,7 +18,11 @@ class ListView {
     const url = this.model.itemUrl(li.innerHTML)
     const otpDiv = document.createElement('div')
     otpDiv.innerHTML = otp
-    this.qrCodeGenerator.run(url, [otpDiv])
+    const deleteButton = document.createElement('div')
+    deleteButton.className = 'delete'
+    deleteButton.innerHTML = 'Delete'
+    deleteButton.addEventListener('click', () => asafonov.messageBus.send(asafonov.events.ITEM_DELETED, item))
+    this.qrCodeGenerator.run(url, [otpDiv, deleteButton])
   }
 
   onListUpdate () {
