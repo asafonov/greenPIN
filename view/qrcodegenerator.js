@@ -53,8 +53,15 @@ class QRCodeGeneratorView {
     return div
   }
 
-  addMessage (msg) {
-    this.qrCodeElement.querySelector('.message').innerHTML = msg
+  addMessage (msgElements) {
+    const messageContainer = this.qrCodeElement.querySelector('.message')
+    messageContainer.innerHTML = ''
+
+    if (msgElements && msgElements.length > 0) {
+      for (let i = 0; i < msgElements.length; ++i) {
+        messageContainer.appendChild(msgElements[i])
+      }
+    }
   }
 
   run (data, msg) {
