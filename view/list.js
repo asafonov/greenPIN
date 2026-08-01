@@ -4,6 +4,7 @@ class ListView {
     this.container = document.querySelector('.content')
     asafonov.messageBus.subscribe(asafonov.events.LIST_UPDATED, this, 'onListUpdate')
     this.onItemClickProxy = this.onItemClick.bind(this)
+    this.onDeleteClickProxy = this.onDeleteClick.bind(this)
     this.onListUpdate()
     this.qrCodeGenerator = new QRCodeGeneratorView()
   }
@@ -21,8 +22,18 @@ class ListView {
     const deleteButton = document.createElement('div')
     deleteButton.className = 'delete'
     deleteButton.innerHTML = 'Delete'
-    deleteButton.addEventListener('click', () => asafonov.messageBus.send(asafonov.events.ITEM_DELETED, item))
+    deleteButton.setAttribute('data-item', JSON.stringify(item))
+    deleteButton.addEventListener('click', this.onDeleteClickProxy)
     this.qrCodeGenerator.run(url, [otpDiv, deleteButton])
+  }
+
+  onDeleteClick (e) {
+    e.preventDefault()
+    e.stopPropagation()
+    const button = e.target
+    const item = JSON.parse(button.getAttribute('data-item'))
+    asafonov.messageBus.send(asafonov.events.ITEM_DELETED, item)
+    this.qrCodeGenerator.close()
   }
 
   onListUpdate () {

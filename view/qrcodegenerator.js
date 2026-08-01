@@ -69,6 +69,10 @@ class QRCodeGeneratorView {
     this.qrCode.makeCode(data)
   }
 
+  close() {
+    this.qrCodeElement.style.display = 'none'
+  }
+
   destroy() {
     this.qrCode = null
     this.qrCodeElement = null
