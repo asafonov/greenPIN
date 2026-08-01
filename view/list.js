@@ -30,10 +30,12 @@ class ListView {
   onDeleteClick (e) {
     e.preventDefault()
     e.stopPropagation()
-    const button = e.target
-    const item = JSON.parse(button.getAttribute('data-item'))
-    asafonov.messageBus.send(asafonov.events.ITEM_DELETED, item)
-    this.qrCodeGenerator.close()
+    if (confirm("Are you sure you want to delete the item?")) {
+      const button = e.target
+      const item = JSON.parse(button.getAttribute('data-item'))
+      asafonov.messageBus.send(asafonov.events.ITEM_DELETED, item)
+      this.qrCodeGenerator.close()
+    }
   }
 
   onListUpdate () {
