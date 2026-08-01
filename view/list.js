@@ -17,7 +17,7 @@ class ListView {
     asafonov.clipboard.copy(otp)
     const url = this.model.itemUrl(li.innerHTML)
     const otpDiv = document.createElement('div')
-    div.innerHTML = otp
+    otpDiv.innerHTML = otp
     this.qrCodeGenerator.run(url, [otpDiv])
   }
 
