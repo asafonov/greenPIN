@@ -1,8 +1,9 @@
 class UpdaterView {
 
-  constructor (upstreamVersionUrl, updateUrl) {
+  constructor() {
+    const upstreamVersionUrl = `https://raw.githubusercontent.com/asafonov/${window.asafonov.app}/master/VERSION.txt`
     this.model = new Updater(upstreamVersionUrl)
-    this.updateUrl = updateUrl
+    this.updateUrl = `https://github.com/asafonov/${window.asafonov.app}/releases/download/{VERSION}/app-release.apk`
   }
 
   showUpdateDialogIfNeeded() {
