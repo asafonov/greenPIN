@@ -7,6 +7,7 @@ window.asafonov.app = 'greenPIN.apk'
 window.asafonov.events = {
   ITEM_ADDED: 'ITEM_ADDED',
   ITEM_DELETED: 'ITEM_DELETED',
+  ITEM_RENAMED: 'ITEM_RENAMED',
   LIST_UPDATED: 'LIST_UPDATED'
 }
 window.asafonov.settings = {

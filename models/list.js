@@ -4,6 +4,7 @@ class List {
     this.list = JSON.parse(window.localStorage.getItem(name)) || {}
     asafonov.messageBus.subscribe(asafonov.events.ITEM_ADDED, this, 'onItemAdd')
     asafonov.messageBus.subscribe(asafonov.events.ITEM_DELETED, this, 'onItemDelete')
+    asafonov.messageBus.subscribe(asafonov.events.ITEM_RENAMED, this, 'onItemRename')
   }
 
   get() {
@@ -38,7 +39,14 @@ class List {
   }
 
   onItemDelete (data) {
-    delete this.list[data.provider]
+    delete this.list[data.key]
+    this.save()
+    asafonov.messageBus.send(asafonov.events.LIST_UPDATED)
+  }
+
+  onItemRename({oldName, newName}) {
+    this.list[newName] = {...this.list[oldName]}
+    delete this.list[oldName]
     this.save()
     asafonov.messageBus.send(asafonov.events.LIST_UPDATED)
   }
@@ -54,5 +62,6 @@ class List {
   destroy() {
     asafonov.messageBus.unsubscribe(asafonov.events.ITEM_ADDED, this, 'onItemAdd')
     asafonov.messageBus.unsubscribe(asafonov.events.ITEM_DELETED, this, 'onItemDelete')
+    asafonov.messageBus.unsubscribe(asafonov.events.ITEM_RENAMED, this, 'onItemRename')
   }
 }

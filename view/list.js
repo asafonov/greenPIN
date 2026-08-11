@@ -5,6 +5,7 @@ class ListView {
     asafonov.messageBus.subscribe(asafonov.events.LIST_UPDATED, this, 'onListUpdate')
     this.onItemClickProxy = this.onItemClick.bind(this)
     this.onDeleteClickProxy = this.onDeleteClick.bind(this)
+    this.onRenameClickProxy = this.onRenameClick.bind(this)
     this.onListUpdate()
     this.qrCodeGenerator = new QRCodeGeneratorView()
   }
@@ -19,21 +20,38 @@ class ListView {
     const url = this.model.itemUrl(li.innerHTML)
     const otpDiv = document.createElement('div')
     otpDiv.innerHTML = otp
+    const renameButton = document.createElement('div')
+    renameButton.innerHTML = 'Rename'
+    renameButton.setAttribute('data-key', li.innerHTML)
+    renameButton.addEventListener('click', this.onRenameClickProxy)
     const deleteButton = document.createElement('div')
     deleteButton.className = 'delete'
     deleteButton.innerHTML = 'Delete'
-    deleteButton.setAttribute('data-item', JSON.stringify(item))
+    deleteButton.setAttribute('data-key', li.innerHTML)
     deleteButton.addEventListener('click', this.onDeleteClickProxy)
-    this.qrCodeGenerator.run(url, [otpDiv, deleteButton])
+    this.qrCodeGenerator.run(url, [otpDiv, deleteButton, renameButton])
+  }
+
+  onRenameClick (e) {
+    e.preventDefault()
+    e.stopPropagation()
+    const oldName = e.target.getAttribute('data-key')
+    const newName = prompt('Rename item', oldName)
+
+    if (!! newName && newName !== oldName) {
+      asafonov.messageBus.send(asafonov.events.ITEM_RENAMED, {oldName, newName})
+      this.qrCodeGenerator.close()
+    }
   }
 
   onDeleteClick (e) {
     e.preventDefault()
     e.stopPropagation()
+
     if (confirm("Are you sure you want to delete the item?")) {
       const button = e.target
-      const item = JSON.parse(button.getAttribute('data-item'))
-      asafonov.messageBus.send(asafonov.events.ITEM_DELETED, item)
+      const key = e.target.getAttribute('data-key')
+      asafonov.messageBus.send(asafonov.events.ITEM_DELETED, {key})
       this.qrCodeGenerator.close()
     }
   }
@@ -58,6 +76,9 @@ class ListView {
     this.container = null
     this.qrCodeGenerator.destroy()
     this.qrCodeGenerator = null
+    this.onItemClickProxy = null
+    this.onDeleteClickProxy = null
+    this.onRenameClickProxy = null
     asafonov.messageBus.unsubscribe(asafonov.events.LIST_UPDATED, this, 'onListUpdate')
   }
 }
