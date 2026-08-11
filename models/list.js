@@ -19,8 +19,20 @@ class List {
     return `otpauth://totp/${item.provider}${! item.username ? '' : ':' + item.username}?secret=${item.secret}&issuer=${item.issuer}`
   } 
 
+  getKey (provider) {
+    let i = ''
+
+    while (this.list[provider + i] !== null && this.list[provider + i] !== undefined) {
+      i = ! i ? 1 : i + 1
+    }
+
+    return provider + i
+  }
+
   onItemAdd (data) {
-    this.list[data.provider] = data
+    if (!data.provider) return
+
+    this.list[this.getKey(data.provider)] = data
     this.save()
     asafonov.messageBus.send(asafonov.events.LIST_UPDATED)
   }
