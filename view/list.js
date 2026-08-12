@@ -30,7 +30,7 @@ class ListView {
     deleteButton.innerHTML = 'Delete'
     deleteButton.setAttribute('data-key', li.innerHTML)
     deleteButton.addEventListener('click', this.onDeleteClickProxy)
-    this.qrCodeGenerator.run(url, [otpDiv, deleteButton, renameButton])
+    this.qrCodeGenerator.run(url, [otpDiv, renameButton, deleteButton])
   }
 
   onRenameClick (e) {
