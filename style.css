@@ -43,10 +43,9 @@ html, body {
 
 .qrContainer .message {
   text-align: center;
-  font-size: var(--headerFontSize);
+  font-size: var(--mainFontSize);
 }
 
 .delete {
-  font-size: var(--mainFontSize);
   color: #ff0000;
 }
