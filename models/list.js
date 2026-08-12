@@ -11,6 +11,10 @@ class List {
     return this.list
   }
 
+  exists (key) {
+    return this.list[key] !== null && this.list[key] !== undefined
+  }
+
   item (key) {
     return this.list[key]
   }

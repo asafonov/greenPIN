@@ -39,8 +39,14 @@ class ListView {
     const newName = prompt('Rename item', oldName)
 
     if (!! newName && newName !== oldName) {
-      asafonov.messageBus.send(asafonov.events.ITEM_RENAMED, {oldName, newName})
       this.qrCodeGenerator.close()
+
+      if (this.model.exists(newName)) {
+        alert(`Item '${newName}' already exists. Please choose another name.`)
+        return
+      }
+
+      asafonov.messageBus.send(asafonov.events.ITEM_RENAMED, {oldName, newName})
     }
   }
 
