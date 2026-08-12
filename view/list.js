@@ -19,7 +19,7 @@ class ListView {
     asafonov.clipboard.copy(otp)
     const url = this.model.itemUrl(li.innerHTML)
     const otpDiv = document.createElement('div')
-    const otpDiv.className = 'header'
+    otpDiv.className = 'header'
     otpDiv.innerHTML = otp
     const renameButton = document.createElement('div')
     renameButton.innerHTML = 'Rename'
