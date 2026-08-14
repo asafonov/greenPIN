@@ -35,7 +35,7 @@ class List {
   }
 
   onItemAdd (data) {
-    if (!data.provider) return
+    if (! data.provider && ! data.secret) return
 
     this.list[this.getKey(data.provider)] = data
     this.save()
